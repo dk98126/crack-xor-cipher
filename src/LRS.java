@@ -1,16 +1,9 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.List;
 
 public class LRS {
-    public static char[] getText(String bytesSource) {
-        byte[] bytes = bytesSource.getBytes();
-        char[] result = new char[bytesSource.length() / 2];
-        for (int i = 0, j = 0; i < result.length; i++, j+=2) {
-            result[i] = (char) ((bytes[j] << 8) + (bytes[j+1]));
-        }
-        return result;
-    }
 
     public static String getTextString(char[] text) {
         return String.valueOf(text);
@@ -27,7 +20,8 @@ public class LRS {
         if (bytes.length() % 2 != 0) {
             throw new IllegalArgumentException("Неверная длина текста");
         }
-        char[] text = getText(bytes);
+        char[] text = StringUtils.getCharsArrayFromBytesString(bytes);
+        List<String> strings = StringUtils.mostOftenStrings(String.valueOf(text), 2, 4);
         System.out.printf("");
     }
 }
