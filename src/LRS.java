@@ -5,10 +5,6 @@ import java.util.List;
 
 public class LRS {
 
-    public static String getTextString(char[] text) {
-        return String.valueOf(text);
-    }
-
     public static void main(String[] args) {
         String bytes = null;
         try (BufferedReader reader = new BufferedReader(new FileReader("txt.txt"))) {
@@ -20,8 +16,7 @@ public class LRS {
         if (bytes.length() % 2 != 0) {
             throw new IllegalArgumentException("Неверная длина текста");
         }
-        char[] text = StringUtils.getCharsArrayFromBytesString(bytes);
-        List<String> strings = StringUtils.mostOftenStrings(String.valueOf(text), 2, 4);
+        List<String> strings = StringUtils.mostOftenStrings(bytes, 2, 4);
         System.out.printf("");
     }
 }

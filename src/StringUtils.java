@@ -1,3 +1,4 @@
+import javax.swing.text.StyledEditorKit;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -78,25 +79,27 @@ public class StringUtils {
                 resultedList.add(entry.getKey());
             }
         }
-        resultedList.sort(Comparator.comparingInt(String::length));
+        resultedList.sort(Comparator.comparingInt(String::length).reversed());
         return resultedList;
     }
 
     public static char[] getCharsArrayFromBytesString(String bytesSource) {
-        byte[] bytes = bytesSource.getBytes();
+        int[] bytes = new int[bytesSource.length() / 2];
+        for (int i = 0, j = 0; i < bytes.length; i++, j += 2) {
+            bytes[i] = Integer.parseInt(bytesSource.substring(j, j + 2), 16);
+        }
         char[] result = new char[bytesSource.length() / 2];
-        for (int i = 0, j = 0; i < result.length; i++, j += 2) {
-            result[i] = (char) ((bytes[j] << 8) + (bytes[j + 1]));
+        for (int i = 0; i < result.length; i++) {
+            result[i] = (char) bytes[i];
         }
         return result;
     }
 
     public static String getBytesStringFromCharsArray(char[] chars) {
-        byte[] result = new byte[chars.length * 2];
-        for (int i = 0, j = 0; i < result.length; i++, j += 2) {
-            result[j] = (byte) ((chars[i] ^ 0xF0) >> 8);
-            result[j + 1] = (byte) (chars[i] ^ 0x0F);
+        Formatter formatter = new Formatter();
+        for (char aChar : chars) {
+            formatter.format("%02x", (int) aChar);
         }
-        return IntStream.range(0, result.length).mapToObj(Integer::toHexString).collect(Collectors.joining());
+        return formatter.toString();
     }
 }
