@@ -14,7 +14,10 @@ public class GammaUtils {
         for (int i = gammaPart.length + offset; i < gammaLength; i++) {
             pseudoGamma[i] = 0;
         }
+
         char[] resultedText = new char[text.length];
+        System.arraycopy(text, 0, resultedText, 0, offset);
+
         for (int i = offset; i < text.length; i++) {
             resultedText[i] = (char) (text[i] ^ pseudoGamma[i % gammaLength]);
         }
