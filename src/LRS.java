@@ -11,7 +11,7 @@ public class LRS {
 
     public static final char[] GAMMA = new char[]
             {       0x88, 0x77, 0x98, 0xA1, 0x1B,
-                    0xE5,    0x27,    0x75,    0,    0,
+                    0xE5, 0x27, 0x75, 0xA7, 0x12,
                        0,    0,    0,    0,    0,
                        0,    0,    0,    0,    0,
                        0,    0,    0,    0,    0xAE,
